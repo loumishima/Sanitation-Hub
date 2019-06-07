@@ -59,6 +59,7 @@ server <- function(input, output, session) {
     tryCatch(summaryText(data()), error = function(e) {
       
       print("No file selected! Please insert one file on the main page!")
+      shinyalert("No file selected! ","Please insert one file on the main page!", type = "error")
       
     } )
     
@@ -84,14 +85,11 @@ server <- function(input, output, session) {
         theme_minimal() +
         theme(plot.title = element_text( face = 'bold', size = 26, hjust = 0.5, vjust = 0.3, colour = '#B10048'))
       }, warning = function(w) {
-        
-        ggplot() + geom_col() +
-          labs(title = "Your dataset is not like the model, go back to the main menu and follow the guide")
-        
+        shinyalert("Your dataset is not like the model! ","Go back to the main menu and follow the guide", type = "error")
+        ggplot() + geom_col() 
       }, error = function(e){
-        
-        ggplot() + geom_col() +
-          labs(title = "Your dataset is not like the model, go back to the main menu and follow the guide")
+        shinyalert("Your dataset is not like the model! ","Go back to the main menu and follow the guide", type = "error")
+        ggplot() + geom_col() 
         
       })
   
@@ -114,15 +112,11 @@ server <- function(input, output, session) {
                  yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
         
         }, warning = function(w) {
-          
-          ggplot() + geom_col() +
-            labs(title = "Your dataset is not like the model, go back to the main menu and follow the guide")
-          
+          shinyalert("Your dataset is not like the model! ","Go back to the main menu and follow the guide", type = "error")
+          ggplot() + geom_col() 
         }, error = function(e){
-          
-          ggplot() + geom_col() +
-            labs(title = "Your dataset is not like the model, go back to the main menu and follow the guide")
-          
+          shinyalert("Your dataset is not like the model! ","Go back to the main menu and follow the guide", type = "error")
+          ggplot() + geom_col() 
       })
       
     }
@@ -149,13 +143,12 @@ server <- function(input, output, session) {
                   title = "Fill Level")
       
       }, warning = function(w) {
-        ggplot() + geom_col() +
-          labs(title = "Your dataset is not like the model, go back to the main menu and follow the guide")
+        shinyalert("Your dataset is not like the model! ","Go back to the main menu and follow the guide", type = "error")
+        ggplot() + geom_col() 
+        
       }, error = function(e){
-        
-        ggplot() + geom_col() +
-          labs(title = "Your dataset is not like the model, go back to the main menu and follow the guide")
-        
+        shinyalert("Your dataset is not like the model! ","Go back to the main menu and follow the guide", type = "error")
+        ggplot() + geom_col() 
       })
     }
     
