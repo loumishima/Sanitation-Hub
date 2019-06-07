@@ -7,6 +7,8 @@ library(scales)
 library(shinyWidgets)
 library(shinythemes)
 library(shinyjs)
+library(RPostgreSQL)
+library(pool)
 
 
 plotProcessing <- function(input, output, session, selection, datasetOne, datasetTwo, attribute = "number.of.cases"){
@@ -111,4 +113,65 @@ plotSelected <- function(input, output, session){
  return(answer)
 }  
 
+loadFile <- function(data) {
+  
+  if(is.null(data)){
+    'No data has been loaded yet!'
+  } else if(grepl('csv', data$name)){
+    infile <- read_csv(data$datapath, na = '--')
+    return(infile)
+  } else {
+    infile <- read_excel(path = data()$datapath)
+    return(infile)
+    
+  }
+}
+
+
+loadFromDB <- function(drv = "PostgreSQL", dbname = 'teste123', host = 'localhost', login = 'gather3', pwd = 'Toilet2019',
+                       database = 'sanitation'){
+  
+  pool <- dbPool(drv, dbname = dbname,
+                 host = host, port = 5432,
+                 user = login, password = pwd,
+                 idleTimeout = 60)
+  
+  file <- dbGetQuery(pool, paste('Select * from', database), stringsAsFactors = FALSE)
+  
+  poolClose(pool)
+  
+  return(file)
+  
+}
+
+summaryText <- function(df){
+  
+  df <- as.data.frame(summary(df))
+  
+  df <- filter(df, !is.na(Freq)) %>% filter(., !grepl("^(Class|Mode)", Freq))
+  
+  df <- mutate(df, Var1 = str_extract(Freq, "^.*:"), Var1 = gsub(":", "", Var1)) 
+  
+  df <- df %>% cast( Var2 ~ Var1, add.missing = T)
+  
+  df <- mutate(df,index = rownames(df)) %>% select(.,c(index, everything()))
+  
+  text <- apply(df, 1, function(x) textStructure(x))
+  
+  return(cat(text))
+  
+}
+
+textStructure <- function(x){
+  
+  x <- x[!is.na(x)]
+  text <- paste("Position:", x[1] , "\n")
+  text <- paste(text, "Column:", x[2], "\n" )
+  x <- x[3:length(x)]
+  for (variable in x) {
+    text<-paste0( text,"\t" , variable , "\n")
+  }
+
+  return(text)
+}
   

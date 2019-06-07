@@ -3,6 +3,10 @@ body, label, input, button, select {
   font-weight: 200;
 }
 
+button { 
+    padding-left: 500px;
+} 
+
 #logo {
   width: 150px;
   height: 66px;
@@ -98,6 +102,11 @@ h1 {
   
   color: "red";
 }
+
+.tabbable > .nav > li > a  {
+  color: black ;
+}
+
             
             
             
