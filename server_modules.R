@@ -175,3 +175,22 @@ textStructure <- function(x){
   return(text)
 }
   
+
+check_colnames <- function(values, pattern) {
+  
+  for (i in seq(1:length(pattern))) {
+    
+    result <- grepl(pattern = pattern[i], values[i])
+    if(result == FALSE){
+      
+      return(pattern[i])
+      
+    }
+    
+  }
+  
+  return(TRUE)
+  
+  
+  
+}

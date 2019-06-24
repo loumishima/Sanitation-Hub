@@ -49,6 +49,34 @@ server <- function(input, output, session) {
   } )
   
   
+  observeEvent(input$Submit,{
+    #Check if using the database
+    if(selected() != -1){
+      shinyalert("Hmmm", "You can't re-upload our own database", type = "warning")
+    } else {
+      pattern <- c('city', 'lat', 'lon', 'mob', 'users', 'fill', 'water', 'toilet', 'basin')
+      values <- colnames(data())
+      #values <- pattern
+      
+      result <- check_colnames(values, pattern)
+      
+      if(is.logical(result) == FALSE){
+        #Error in matching columns
+        shinyalert(title = paste0("Can't find '", result, "' column!"), text = "Please organize according to the guide %Link%",
+                   type = 'error')
+      } else {
+        
+        # SUBMIT DATA TO DATABASE HERE
+        shinyalert(title = 'Uploaded!', text = "Soon it will be on our servers!",
+                   type = 'success')
+      }
+      
+    }
+    
+
+  })
+  
+  
   
   output$data_structure <- renderText( {
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
@@ -136,7 +164,7 @@ server <- function(input, output, session) {
       pal_fill <- colorFactor("Set1", domain = new_fill, ordered = F)
       
       leaflet(data = df) %>% addProviderTiles(provider = providers$OpenStreetMap) %>% 
-        addCircleMarkers(lng = ~longitude, lat = ~latitude, color = ~pal_fill(data()$fill_level),
+        addCircleMarkers(lng = ~longitude, lat = ~latitude, color = ~pal_fill(data()$fill_level), label = ~new_fill,
                          clusterOptions = markerClusterOptions(color = 'black', maxClusterRadius = 100)) %>% 
         addLegend("bottomright", pal = pal_fill, 
                   values = ~new_fill,
