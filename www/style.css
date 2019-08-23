@@ -5,7 +5,20 @@ body, label, input, button, select {
 
 button { 
     padding-left: 500px;
-} 
+}
+
+#numeric_title {
+  font-size: x-large;
+  text-align: center;
+  font-weight: bold;
+}
+
+#categorical_title{
+  font-size: x-large;
+  text-align: center;
+  font-weight: bold;
+}
+
 
 #logo {
   width: 150px;

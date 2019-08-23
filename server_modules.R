@@ -190,7 +190,50 @@ check_colnames <- function(values, pattern) {
   }
   
   return(TRUE)
+}
+
+
+
+dataStats <- function(dataset){
   
+  dataset <- dataset %>% summarise_if(is.numeric,
+                                            list("~max" = ~max(., na.rm = T),
+                                                 "~min" = ~min(., na.rm = T),
+                                                 "~mean" = ~mean(., na.rm = T),
+                                                 "~median" =~median(., na.rm = T),
+                                                 "~sd" =~sd(., na.rm = T),
+                                                 "~mad" =~mad(., na.rm = T),
+                                                 "~IQR" =~IQR(., na.rm = T)))
+  
+  
+  dataset <- gather(dataset, "Name" , "Stats"  )
+  dataset <- separate(dataset, Name, c("Name","Metric"), sep = "~" )
+  dataset <- spread(dataset, "Metric", "Stats")
+  dataset <- select(dataset, c("Name", "min", "max","mean", "median", "sd", "mad", "IQR"))
+  
+  
+  return(dataset)
   
   
 }
+
+CategoricalStats <- function(dataset){
+  
+  dataset <- dataset %>% mutate_if(is.character, as.factor)
+  dataset <- dataset %>% summarise_if(is.factor, 
+                                      list("~length" = ~length(.) ,
+                                           "~unique values" = ~length(levels(.))))
+  
+  dataset <- gather(dataset, "Name" , "Stats"  )
+  dataset <- separate(dataset, Name, c("Name","Metric"), sep = "~" )
+  dataset <- spread(dataset, "Metric", "Stats")
+  dataset <- select(dataset, c("Name", "length", "unique values"))
+  
+  return(dataset)
+}
+
+
+
+
+
+

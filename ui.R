@@ -52,7 +52,20 @@ ui <- tagList(
              tabPanel(title = 'Data overview', id = 'overview', value = 1,
                       textOutput("data_structure"),
                       br(),
-                      verbatimTextOutput("data_stats")
+                      textOutput("numeric_title"),
+                      br(),
+                      br(),
+                      fluidRow(
+                        column(offset = 3, width = 6, tableOutput("data_stats"))
+                      ),
+                      br(),
+                      br(),
+                      textOutput("categorical_title"),
+                      br(),
+                      br(),
+                      fluidRow(
+                        column(offset = 3, width = 6, tableOutput("cat_stats"))
+                      )
                       ),
              tabPanel(title = 'Data analysis', id = 'analysis', value = 2,
                       tabsetPanel(id = 'analysis-selection', type = 'tabs',
