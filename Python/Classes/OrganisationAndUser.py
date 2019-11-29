@@ -1,13 +1,57 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed Nov 27 11:08:29 2019
+Created on Wed Nov 27 14:27:10 2019
 
 @author: gather3
 """
+#from User import User, SuperUser
 from datetime import datetime as dt
 import re
 
+# =============================================================================
+# ---------------------------- Organisation -----------------------------------
+# =============================================================================
+class Organisation():
+    
+    def __init__(self, name, idOrg, dateEntrance = dt.now()):
+        self.name = name
+        self.dateEntrance = dateEntrance
+        self.idOrg = idOrg
+        self.members = list()
+        
+    def addMember(self, database, Email):
+        if Email is None:
+            raise Exception("You need an Email to link the user to the organisation")
+            
+        result = [user for user in database if user.email == Email]
+        for item in result:
+            newItem = SuperUser(item, self)
+            self.members.append(newItem)
+            database.remove(item)
+            
+            
+    def removeMember(self, database, Email):
+        if Email is None:
+            raise Exception("You need an Email to link the user to the organisation")
+            
+        result = [user for user in self.members if user.email == Email]
+        for user in result:
+            self.members.remove(user)
+            newUser = User(user.firstName, user.lastName, user.email, user.login, user.password, user.phone)
+            database.append(newUser)
+     
+        
+class Partner(Organisation):
+    
+    def __init__(self, name, idOrg, dateEntrance = dt.now() ):
+        super().__init__(name, idOrg, dateEntrance)
+        self.datasets = list()
+
+# =============================================================================
+# ---------------------------------- User -------------------------------------
+# =============================================================================      
+        
 class User():
     
     def __init__(self, firstName, lastName, email, login, password, phone = 0):
@@ -61,7 +105,7 @@ class User():
         return self._email
     @email.setter
     def email(self, value):
-        if not re.search("^.*@\w{3,}\.[^ ]+", value):
+        if not re.search("^.+@\w{3,}\.[^ ]+", value):
             raise Exception("Your email doesn't have the standard format")
         self._email = value
         
@@ -141,17 +185,65 @@ class SuperUser(User):
     def __init__(self, user, organisation):
         super().__init__(user.firstName, user.lastName, user.email, user.login, user.password, user.phone)
         self.organisation = organisation
+        
+    
+    def addDataset(self, filename, dataset, ipAddress, location, latitude, longitude):
+        if type(self.organisation) is Partner:
+            try:
+                ds = Dataset(filename, dataset, ipAddress, location, latitude, longitude)
+            except Exception:
+                print('Your data is not valid! Follow our docs to know how to prepare your data')
+            else:
+                self.datasets.append(ds)
+        else:
+            raise Exception('Your company has no permition to upload datasets! Contact us for more details')
+
+        
+    def viewDataStats(self):
+        if isinstance(self.organisation, Partner):
+            #See specific datasets
+            print('ok')
+        else:
+            print('not ok')
             
-    
-if __name__ == '__main__':
-    
-    #Unit testing here
-    # valid case
-    U = User('Luiz', 'Rodrigues', 'luiz.h@abc.com', 'LHRO', 'Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa0')
-    print(U)
-    
-    # invalid cases
-    U2 = User('???', 'Rodrigues', 'luiz.h@abc.com', 'LHRO', 'Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa0')
-    print(U2)
+    def __str__(self):
+        return super().__str__() +'\n'+ f'Organisation type: {type(self.organisation)}'
         
         
+if __name__ == "__main__":
+    
+    database = [
+            User('Luiz', 'Rodrigues', 'luiz.h@abc.com', 'LHRO', 'Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa0'),
+            User('Lindsey', 'Noakes', 'lindsey.n@abc.com', 'LNNO', 'Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa0'),
+            User('John', 'Peter Archer', 'john.pa@abc.com', 'JPA', 'Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa0'),
+            User('Charlie', 'Stubbs', 'charlie.s@abc.com', 'CHST', 'Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa0'),
+            User('Stephanie', 'Fang', 'steph.f@abc.com', 'STFG', 'Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa0'),
+            User('Lieven', 'Slenders', 'lieven.s@abc.com', 'LVSL', 'Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa0')
+            ]
+    print('----------------- Before adding to the organisation -----------------')
+    print('Database')
+    print([type(user) for user in database])
+    print([user.firstName for user in database])
+    
+    Gather = Partner('Gather', '000')
+    
+    print('----------------- After adding to the organisation -----------------')
+    Gather.addMember( database, Email = 'luiz.h@abc.com')
+    print('Members')
+    print([type(user) for user in Gather.members])
+    Gather.members[0].viewDataStats()
+    print(Gather.members[0])
+    print([user.firstName for user in Gather.members])
+    print('Database')
+    print([user.firstName for user in database])
+    
+    Gather.removeMember( database, Email = 'luiz.h@abc.com')
+    
+    print('----------------- After removing from the organisation -----------------')
+    print('Members')
+    print([user.Name for user in Gather.members])
+    print('Database')
+    print([type(user) for user in database])
+    print([user.firstName for user in database])
+    
+    
