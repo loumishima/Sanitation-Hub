@@ -1,0 +1,48 @@
+{% load static %}
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %} - Sanitation Hub</title>
+    {% bootstrap_css %}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+</head>
+<body>
+    <header>
+      <ul class="menu">
+          <li id="appTitle"><a href="{% url 'index' %}">Sanitation Hub</a></li>
+          <li class="menuItem"><a href="{% url 'maps' %}">Maps</a></li>
+          <li class="menuItem"><a href="{% url 'stats' %}">Stats</a></li>
+          <li class="menuItem"><a href="#">Charts</a></li>
+          <li class="menuItem"><a href="{% url 'appendix' %}">Appendix</a></li>
+          <li class="menuItem"><a href="{% url 'upload' %}">Data Upload</a></li>
+
+        </ul>
+        {% if user.is_authenticated %}
+            <div id="profilepic">
+                <img src="a.png">
+            </div>
+            <div class="profile_name">
+                Hi {{ user.username }}!
+            </div>
+            <a href="{% url 'logout' %}"><button class="logoff">Logoff</button></a>
+            <button class="logoff">Profile</button>
+
+        {% else %}
+
+        <p class="profile_name">You are not logged in</p>
+        <a href="{% url 'login' %}"><button class="logoff">Login</button></a>
+        <a href="{% url 'signup' %}"><button class="logoff">Register</button></a>
+        
+        {% endif %}
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+{% bootstrap_javascript jquery='full' %}   
+</body>
+</html>

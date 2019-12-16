@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Dec  3 11:25:57 2019
+
+@author: gather3
+"""
+
+class Statistics():
+    def __init__(self,dataset, columns):
+        self.data = dataset
+        self.columns = columns
+    
+class Map():
+    def __init__(self, dataset, colour, legend, labels, hoverData, location = (None, None)):
+        self.data = dataset
+        self.colour = colour
+        self.legend = legend
+        self.labels = labels
+        self.hoverData = hoverData
+        self.location = location
+
+class Plots():
+    def __init__(self,dataset, plotType, xAxis, yAxis, color, labels, hoverData):
+        self.data = dataset
+        self.plotType
+        self.xAxis = xAxis
+        self.yAxis = yAxis
+        self.color = color
+        self.labels = labels
+        self.hoverData = hoverData
+

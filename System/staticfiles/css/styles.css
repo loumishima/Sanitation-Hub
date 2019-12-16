@@ -1,0 +1,52 @@
+body {
+    display: flex;
+}
+header {
+    flex: 25%;
+}
+.menu {
+    display: block;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 20%;
+    background-color: #B10048;
+    color: aliceblue;
+    height: 100%; /* Full height */
+    position: fixed; /* Make it stick, even on scroll */
+    overflow: auto; /* Enable scrolling if the sidenav has too much content */
+  }
+
+  .menuItem {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #FFFFFF30;
+    font-size: larger;
+    text-align: center;
+    padding: 10px ;
+  }
+
+  .menuItem a{
+      color: aliceblue;
+      text-decoration: none;
+  }
+
+  .menuItem:hover {
+      text-decoration: none;
+      background-color: #B10035;
+  }
+
+  .menuItem:active {
+    text-decoration: none;
+    background-color: #B10035;
+}
+
+  #appTitle {
+    font-size: xx-large;
+  }
+
+  main {
+    flex: 85%;
+    display: block;
+    margin: 20px;
+  }
