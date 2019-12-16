@@ -1,5 +1,7 @@
 from .models import StatsResumed, Dataset
 import pandas as pd
+import folium
+from folium import plugins
 
 def getCredentials(user, function):
     def Decorator(*args, **kwargs):
@@ -18,7 +20,14 @@ def showMaps(limited, user):
         x =  Dataset.objects.get(organisation_id = user.organisation_id).filename
         df = pd.read_csv(x.path)
 
-        return df.columns
+        m = folium.Map(tiles='Stamen Terrain')
+
+        mc = plugins.MarkerCluster()
+        
+        for index, location in df.iterrows():
+            mc.add_child(folium.Marker([location['latitude'], location['longitude']])).add_to(m)
+
+        return m._repr_html_()
         
 
 def showStats(limited, user):
