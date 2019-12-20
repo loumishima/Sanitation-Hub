@@ -13,6 +13,7 @@ urlpatterns = [
     path('maps/', MapsView.as_view(), name='maps'),
     path('appendix/', AppendixView.as_view(), name='appendix'),
     path('stats/', StatsView.as_view(), name='stats'),
+    path('stats/', ChartsView.as_view(), name='charts'),
     path('upload/', DatasetUploadView.as_view(), name='upload' )
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
