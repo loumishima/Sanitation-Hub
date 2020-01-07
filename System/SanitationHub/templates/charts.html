@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
+{% load static %}
 
-    {% block title %}Main Menu{% endblock %}
+    {% block title %}Data Visualisations{% endblock %}
     {% block content %}
 
-    <h1>Appendix</h1>
+    <h1>Charts</h1>
+    
+    <div class="container">
+        <canvas id="graph" width="800" height="400"></canvas>
+    </div>
 
-    {% endblock %}
+    
+    {% endblock content %}
+    {% block footer_scripts %}
+    {% endblock footer_scripts %}

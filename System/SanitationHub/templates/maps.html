@@ -5,7 +5,8 @@
 
     <h1>Maps</h1>
 
-    {{isHubMember | safe}}
-
+    {% for item in isHubMember %}
+        {{item | safe}}
+    {% endfor %}
 
     {% endblock %}

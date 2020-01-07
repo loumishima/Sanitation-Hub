@@ -1,7 +1,7 @@
 from django.urls import path, include
 from django.contrib import admin
 
-from .views import ContactView, IndexView, SignUpView, MapsView, AppendixView, StatsView, DatasetUploadView
+from .views import ContactView, IndexView, SignUpView, MapsView, AppendixView, StatsView,ChartsView, DatasetUploadView, PlotView
 
 from django.conf.urls.static import static
 from django.conf import settings
@@ -13,7 +13,8 @@ urlpatterns = [
     path('maps/', MapsView.as_view(), name='maps'),
     path('appendix/', AppendixView.as_view(), name='appendix'),
     path('stats/', StatsView.as_view(), name='stats'),
-    path('stats/', ChartsView.as_view(), name='charts'),
+    path('charts/', ChartsView.as_view(), name='charts'),
+    path('plotcharts/', PlotView.as_view(), name='dados'),
     path('upload/', DatasetUploadView.as_view(), name='upload' )
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

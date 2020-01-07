@@ -1,10 +1,8 @@
     {% extends 'base.html' %}
-
+    {% load static %}
     {% block title %}Main Menu{% endblock %}
     {% block content %}
-
-    <h1>HOMEPAGE</h1>
-
+<!-- 
     {% if user.is_authenticated %}
         Hi {{ user.username }}!
         <p><a href="{% url 'logout' %}">logout</a></p>
@@ -12,6 +10,20 @@
         <p>You are not logged in</p>
         <a href="{% url 'login' %}">login</a>
     {% endif %}
+ -->
+
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quam pellentesque nec nam aliquam sem et tortor consequat id. Sit amet luctus venenatis lectus magna. Eget velit aliquet sagittis id. Scelerisque eleifend donec pretium vulputate. Nunc mi ipsum faucibus vitae aliquet nec. In est ante in nibh. Ut lectus arcu bibendum at varius vel pharetra vel. Cursus in hac habitasse platea dictumst quisque sagittis. Nisi lacus sed viverra tellus in hac habitasse platea. Diam in arcu cursus euismod quis viverra nibh cras pulvinar. Sapien et ligula ullamcorper malesuada proin libero nunc. Integer enim neque volutpat ac tincidunt. Commodo elit at imperdiet dui accumsan. Vulputate eu scelerisque felis imperdiet proin fermentum. Tristique nulla aliquet enim tortor at auctor urna nunc id. Tristique risus nec feugiat in fermentum posuere. Diam quis enim lobortis scelerisque. Dignissim suspendisse in est ante in nibh mauris cursus mattis
+    </p>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quam pellentesque nec nam aliquam sem et tortor consequat id. Sit amet luctus venenatis lectus magna. Eget velit aliquet sagittis id. Scelerisque eleifend donec pretium vulputate. Nunc mi ipsum faucibus vitae aliquet nec. In est ante in nibh. Ut lectus arcu bibendum at varius vel pharetra vel. Cursus in hac habitasse platea dictumst quisque sagittis. Nisi lacus sed viverra tellus in hac habitasse platea. Diam in arcu cursus euismod quis viverra nibh cras pulvinar. Sapien et ligula ullamcorper malesuada proin libero nunc. Integer enim neque volutpat ac tincidunt. Commodo elit at imperdiet dui accumsan. Vulputate eu scelerisque felis imperdiet proin fermentum. Tristique nulla aliquet enim tortor at auctor urna nunc id. Tristique risus nec feugiat in fermentum posuere. Diam quis enim lobortis scelerisque. Dignissim suspendisse in est ante in nibh mauris cursus mattis
+    </p>
+
+    <img src="{% static 'images/logo.png' %}" alt="logo">
+
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quam pellentesque nec nam aliquam sem et tortor consequat id. Sit amet luctus venenatis lectus magna. Eget velit aliquet sagittis id. Scelerisque eleifend donec pretium vulputate. Nunc mi ipsum faucibus vitae aliquet nec. In est ante in nibh. Ut lectus arcu bibendum at varius vel pharetra vel. Cursus in hac habitasse platea dictumst quisque sagittis. Nisi lacus sed viverra tellus in hac habitasse platea. Diam in arcu cursus euismod quis viverra nibh cras pulvinar. Sapien et ligula ullamcorper malesuada proin libero nunc. Integer enim neque volutpat ac tincidunt. Commodo elit at imperdiet dui accumsan. Vulputate eu scelerisque felis imperdiet proin fermentum. Tristique nulla aliquet enim tortor at auctor urna nunc id. Tristique risus nec feugiat in fermentum posuere. Diam quis enim lobortis scelerisque. Dignissim suspendisse in est ante in nibh mauris cursus mattis
+    </p>
     {% endblock %}
 </body>
 </html>

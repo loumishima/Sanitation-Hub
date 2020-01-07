@@ -91,3 +91,16 @@ main {
   border-radius: 20%;
 }
 
+.statsArea {
+  margin: 20px;
+}
+
+.desc {
+  padding: 50px 100px 30px 100px;
+}
+
+.form-upload{
+  margin-top: 100px ;
+  text-align: center;
+  border: double;
+}

@@ -31,6 +31,12 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'SanitationHub',
+    'chartjs',
+    'crispy_forms',
+    'bootstrap4',
+    'stdimage',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,11 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'SanitationHub',
-    'crispy_forms',
-    'bootstrap4',
-    'stdimage',
-    'chartjs',
 ]
 
 MIDDLEWARE = [
@@ -141,15 +142,14 @@ FILE_UPLOAD_TYPE = 'csv'
 #EMAIL CONSOLE TEST
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-"""
-#EMAIL PRODUCAO
-EMAIL_HOST = 'localhost'
-EMAIL_HOST_USER = 'no-reply@fusion.com.br
-EMAIL_PORT = 3587
-EMAIL_USE_TSL = True
-EMAIL_HOST_PASSWORD = 'fusion'
-DEFAULT_FROM_EMAIL = 'hello@gatherhub.org'
+# EMAIL DETAIL
+# EMAIL_HOST = 'smtp.office365.com'
+# EMAIL_HOST_USER = 'luiz@gatherhub.org'
+# EMAIL_PORT = 587
+# EMAIL_USE_TSL = True
+# EMAIL_USE_SSL = False
+# EMAIL_HOST_PASSWORD = 'Toilet2019'
 
-
-"""
+# DEFAULT_FROM_EMAIL  = 'hello@gatherhub.org'

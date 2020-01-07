@@ -26,11 +26,10 @@ class ContactForm(forms.Form):
         mail = EmailMessage(
             subject=subject,
             body=content,
-            from_email='hello@gatherhub.org',
-            to=['hello@gatherhub.org'],
+            from_email= email,
+            to=['luiz@gatherhub.org'],
             headers={'Reply_To': email}
-        )
-        mail.send()
+        ).send()
 
 class SignUpForm(UserCreationForm):
 

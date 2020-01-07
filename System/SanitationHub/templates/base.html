@@ -16,7 +16,7 @@
           <li id="appTitle"><a href="{% url 'index' %}">Sanitation Hub</a></li>
           <li class="menuItem"><a href="{% url 'maps' %}">Maps</a></li>
           <li class="menuItem"><a href="{% url 'stats' %}">Stats</a></li>
-          <li class="menuItem"><a href="#">Charts</a></li>
+          <li class="menuItem"><a href="{% url 'charts' %}">Charts</a></li>
           <li class="menuItem"><a href="{% url 'appendix' %}">Appendix</a></li>
           <li class="menuItem"><a href="{% url 'upload' %}">Data Upload</a></li>
           <li class="menuItem"><a href="{% url 'contact' %}">Contact Us</a></li>
@@ -42,8 +42,20 @@
     </header>
     <main>
         {% block content %}
-        {% endblock %}
+        {% endblock content%}
     </main>
-{% bootstrap_javascript jquery='full' %}   
+{% bootstrap_javascript jquery='full' %} 
+
+<script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
+<script type="text/javascript">
+    $.get('{% url "dados" %}', function(data){
+        var ctx = $('#graph').get(0).getContext("2d");
+        new Chart(ctx, {
+        type: 'line', data:data
+        });
+    });
+</script>
+{% block footer_script %}
+{% endblock footer_script %}
 </body>
 </html>
