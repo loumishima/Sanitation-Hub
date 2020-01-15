@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'z(k(ss7mvs8v2=l3^n)yjtzdens9n@3^a)95lb3ma4_4c(3eln'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -83,10 +83,10 @@ WSGI_APPLICATION = 'System.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Sanitationhub',
-        'USER': 'root',
-        'PASSWORD' : 'Toilet2019',
+        'ENGINE': ,
+        'NAME': ,
+        'USER': ,
+        'PASSWORD' : ,
     }
 }
 
