@@ -122,5 +122,12 @@ class DatasetUploadForm(forms.ModelForm):
 
         return ip
 
+class EditProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username','email', 'first_name', 'last_name', 'profilePic')
+    email = forms.CharField(disabled=True)
+    username = forms.CharField(disabled=True)
+    
 
     

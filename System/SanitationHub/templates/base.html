@@ -24,13 +24,17 @@
         </ul>
         {% if user.is_authenticated %}
             <div id="profilepic">
-                <img src="a.png">
+                {% if user.profilePic == '' %}
+                    <img src="{% static 'images/pp.jpeg' %}" />
+                {% else %}
+                    <img src="{{user.profilePic.url}}">
+                {% endif %}
             </div>
             <div class="profile_name">
                 Hi {{ user.username }}!
             </div>
             <a href="{% url 'logout' %}"><button class="logoff">Logoff</button></a>
-            <button class="logoff">Profile</button>
+            <a href="{% url 'edit_profile' %}"><button class="logoff">Profile</button></a>
 
         {% else %}
 

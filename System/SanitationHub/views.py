@@ -1,13 +1,13 @@
-from django.views.generic import FormView, TemplateView, CreateView
+from django.views.generic import FormView, TemplateView, CreateView, UpdateView
 from chartjs.views.lines import BaseLineChartView
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.contrib.auth import login
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 
-from .forms import ContactForm, SignUpForm, DatasetUploadForm
+from .forms import ContactForm, SignUpForm, DatasetUploadForm, EditProfileForm
 from .models import User
 from .utils import showCharts, showMaps, showStats, getCredentials, getProviders, getData
 
@@ -122,3 +122,12 @@ class DatasetUploadView(LoginRequiredMixin, CreateView):
     def form_invalid(self, form, *args, **kwargs):
         messages.error(self.request, 'Error while creating your account')
         return super(SignUpView, self).form_invalid(form, *args, **kwargs)
+
+class ProfileView(LoginRequiredMixin, UpdateView):
+    model = User
+    form_class = EditProfileForm
+    template_name = 'user_update_form.html'
+    success_url = reverse_lazy('index')
+
+    def get_object(self):
+        return get_object_or_404(User, id=self.request.user.id)

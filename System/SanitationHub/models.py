@@ -25,7 +25,7 @@ class Organisation(models.Model):
 
 class User(AbstractUser):
     dateEntrance = models.DateField('Date of Creation', editable=False, auto_now_add=True)
-    profilePic = StdImageField('Profile Picture', variations={'thumb': (124,124)})
+    profilePic = StdImageField('Profile Picture', variations={'thumb': (124,124)}, blank=True, upload_to='user_pics')
     organisation = models.ForeignKey(Organisation, on_delete='SET_NULL', blank=True, null=True)
 
     def __str__(self):
