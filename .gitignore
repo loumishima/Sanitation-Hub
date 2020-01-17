@@ -2,3 +2,5 @@
 \.DS_Store
 
 *.pyc
+
+System/System/settings.py
