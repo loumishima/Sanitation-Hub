@@ -9,6 +9,13 @@ from .models import User, Organisation, Dataset
 import pandas as pd
 
 class ContactForm(forms.Form):
+    '''
+    Form for contacting Gather.
+
+    For now, only prints in the console screen the information,
+    go to settings.py to add the server details.
+
+    '''
     name = forms.CharField(label='Name', max_length=100)
     email = forms.EmailField(label='E-mail', max_length=100)
     subject = forms.CharField(label='Subject', max_length=100)
@@ -27,17 +34,18 @@ class ContactForm(forms.Form):
             subject=subject,
             body=content,
             from_email= email,
-            to=['luiz@gatherhub.org'],
+            to=['hub@gatherhub.org'],
             headers={'Reply_To': email}
         ).send()
 
 class SignUpForm(UserCreationForm):
 
+    # Field responsible for linking users and organisations and also responsible for unlocking features
     organisation_code = forms.CharField(label='Organisation Code', max_length=6, required=False)
             
-
     class Meta:
         model = User
+        # Fields that are going to be available on the webpage
         fields = ('first_name', 'last_name','email', 'username')
     
     def clean(self):
@@ -56,6 +64,7 @@ class SignUpForm(UserCreationForm):
         return user
 
     def checkOrg(self, typedCode):
+        # Verify if organisation code provided by user exists
         organisations = Organisation.objects.all()
 
         try:
@@ -63,7 +72,7 @@ class SignUpForm(UserCreationForm):
             return result
         except :
             return None
-            # raise Exception(f'{typedCode} - Company not found!')
+            # TODO: raise Exception(f'{typedCode} - Company not found!') - make it a pop-up
         
 class DatasetUploadForm(forms.ModelForm):
 
@@ -100,6 +109,9 @@ class DatasetUploadForm(forms.ModelForm):
         
 
     def checkValidity(self, df):
+        # Verify if the file uploaded follows all the rules
+
+        # TODO: Add more rules to be followed accordingly to the data standard resolution
         df_pandas = pd.read_csv(df)
         columns = ['latitude','longitude','capacity','people_usi','last_clean','storage_ty']
         for col in df_pandas.columns:
@@ -113,6 +125,7 @@ class DatasetUploadForm(forms.ModelForm):
 
 
     def getClientIp(self):
+        # Get user IP, to verify if the user is uploading from a common place
         xForwardedFor =  self.request.META.get('HTTP_X_FORWARDED_FOR')
 
         if xForwardedFor:

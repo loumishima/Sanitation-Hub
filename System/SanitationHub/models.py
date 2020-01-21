@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
+# TODO: Modify the structure according to the Data Standards resolution
 
 from django.db import models
 from stdimage.models import StdImageField
@@ -19,9 +19,6 @@ class Organisation(models.Model):
 
     def __str__(self):
         return self.name
-
-
-
 
 class User(AbstractUser):
     dateEntrance = models.DateField('Date of Creation', editable=False, auto_now_add=True)

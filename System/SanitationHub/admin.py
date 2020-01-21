@@ -4,7 +4,7 @@ from .models import User, Organisation, Dataset
 
 import random, string
 
-# Register your models here.
+# Information that is going to be displayed on the admin page.
 
 @admin.register(Organisation)
 class OrgAdmin(admin.ModelAdmin):
